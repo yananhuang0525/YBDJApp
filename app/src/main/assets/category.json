@@ -1,0 +1,92 @@
+﻿{
+  "status": "ok",
+  "response": {
+    "categorybases": [
+      {
+        "_links": {
+          "self": {
+            "href": "/api/v1/categorybase/6ed680be63914043be3484cd6b6dc31e"
+          }
+        },
+        "_href": "/api/v1/categorybase/6ed680be63914043be3484cd6b6dc31e",
+        "id": "6ed680be63914043be3484cd6b6dc31e",
+        "name": "儿童用药",
+        "sort": 30,
+        "level": 1,
+        "picture": "",
+        "is_hot": "0",
+        "parent_id": "1",
+        "is_parent": true,
+        "goods_number": 2
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/api/v1/categorybase/21acd4b4c5444eba919bd4d9c402b205"
+          }
+        },
+        "_href": "/api/v1/categorybase/21acd4b4c5444eba919bd4d9c402b205",
+        "id": "21acd4b4c5444eba919bd4d9c402b205",
+        "name": "滋补保健",
+        "sort": 30,
+        "level": 1,
+        "picture": "/001/userfiles/1/_thumbs/images/shop/categorybase/2017/01/11111.jpg",
+        "is_hot": "0",
+        "parent_id": "1",
+        "is_parent": true,
+        "goods_number": 1
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/api/v1/categorybase/c055639edc7543f1bbaa801f3d7822bb"
+          }
+        },
+        "_href": "/api/v1/categorybase/c055639edc7543f1bbaa801f3d7822bb",
+        "id": "c055639edc7543f1bbaa801f3d7822bb",
+        "name": "家庭常备",
+        "sort": 70,
+        "level": 1,
+        "picture": "",
+        "is_hot": "0",
+        "parent_id": "1",
+        "is_parent": true,
+        "goods_number": 4
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/api/v1/categorybase/a15115e41b3246fdbd5df5d5e863e3c2"
+          }
+        },
+        "_href": "/api/v1/categorybase/a15115e41b3246fdbd5df5d5e863e3c2",
+        "id": "a15115e41b3246fdbd5df5d5e863e3c2",
+        "name": "中西药品",
+        "sort": 90,
+        "level": 1,
+        "picture": "",
+        "is_hot": "0",
+        "parent_id": "1",
+        "is_parent": true,
+        "goods_number": 10
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/api/v1/categorybase/b4b38e45c73a464f8d2d695a8122547e"
+          }
+        },
+        "_href": "/api/v1/categorybase/b4b38e45c73a464f8d2d695a8122547e",
+        "id": "b4b38e45c73a464f8d2d695a8122547e",
+        "name": "健康保健",
+        "sort": 180,
+        "level": 1,
+        "picture": "",
+        "is_hot": "0",
+        "parent_id": "1",
+        "is_parent": true,
+        "goods_number": 1
+      }
+    ]
+  }
+}

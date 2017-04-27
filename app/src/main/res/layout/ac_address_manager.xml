@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/bg_theme"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingRight="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_back" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_add"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_add" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="没有设置收货地址"
+        android:textSize="18dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/sel_bg_add_address"
+        android:gravity="center"
+        android:text="添加新地址"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+</LinearLayout>

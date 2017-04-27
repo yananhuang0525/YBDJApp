@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="status_bar_bg">#EF3A19</color>-->
+    <!--<color name="main_header_bg">#EF3A19</color>-->
+    <!--<color name="main_footer_bg">#f5f5f5</color>-->
+
+    <color name="title_base_button_text_color">#ffffff</color>
+
+
+    <color name="text_black">#999999</color>
+    <!-- 底栏字体颜色 -->
+    <color name="footer_text_color_normal">#343434</color>
+    <color name="footer_text_color_selected">#35a6a6</color>
+    <color name="bg_theme">#35a6a6</color>
+    <color name="bg_theme_click">#3ACCCC</color>
+
+    <color name="tabTextDefault">#999</color>
+    <color name="tabTextSelected">#5abfbf</color>
+    <color name="btn_register_color">#F49546</color>
+    <color name="btn_register_click_color">#FBA864</color>
+</resources>

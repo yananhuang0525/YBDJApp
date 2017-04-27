@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/bg_theme"
+        android:gravity="center"
+        android:text="列表清单"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_have"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_all"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="全选"
+                android:textColor="@color/color_text_black"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center"
+                android:paddingLeft="20dp"
+                android:paddingRight="12dp"
+                android:text="删除"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <com.liaoinstan.springview.widget.SpringView
+            android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_detailed_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.liaoinstan.springview.widget.SpringView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合计：￥30.00"
+                    android:textColor="@color/liji_material_red_500"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123"
+                    android:textColor="@color/text_black"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@drawable/sel_bg_add_list"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_no"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_shopping_car" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:text="当前您的列表清单还是空的" />
+
+        <TextView
+            android:id="@+id/tv_shopping"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/sel_register"
+            android:gravity="center"
+            android:text="去购物"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+    </LinearLayout>
+</LinearLayout>

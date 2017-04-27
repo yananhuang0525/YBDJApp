@@ -1,0 +1,58 @@
+﻿{
+  "status": "ok",
+  "response": {
+    "categorybases": [
+      {
+        "_links": {
+          "self": {
+            "href": "/api/v1/categorybase/6ed680be63914043be3484cd6b6dc31e"
+          }
+        },
+        "_href": "/api/v1/categorybase/6ed680be63914043be3484cd6b6dc31e",
+        "id": "6ed680be63914043be3484cd6b6dc31e",
+        "name": "字幕了",
+        "sort": 30,
+        "level": 1,
+        "picture": "",
+        "is_hot": "0",
+        "parent_id": "1",
+        "is_parent": true,
+        "goods_number": 2
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/api/v1/categorybase/21acd4b4c5444eba919bd4d9c402b205"
+          }
+        },
+        "_href": "/api/v1/categorybase/21acd4b4c5444eba919bd4d9c402b205",
+        "id": "21acd4b4c5444eba919bd4d9c402b205",
+        "name": "第二怒考虑",
+        "sort": 30,
+        "level": 1,
+        "picture": "/001/userfiles/1/_thumbs/images/shop/categorybase/2017/01/11111.jpg",
+        "is_hot": "0",
+        "parent_id": "1",
+        "is_parent": true,
+        "goods_number": 1
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/api/v1/categorybase/21acd4b4c5444eba919bd4d9c402b205"
+          }
+        },
+        "_href": "/api/v1/categorybase/21acd4b4c5444eba919bd4d9c402b205",
+        "id": "21acd4b4c5444eba919bd4d9c402b205",
+        "name": "ddsafds",
+        "sort": 30,
+        "level": 1,
+        "picture": "/001/userfiles/1/_thumbs/images/shop/categorybase/2017/01/11111.jpg",
+        "is_hot": "0",
+        "parent_id": "1",
+        "is_parent": true,
+        "goods_number": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingBottom="12dp"
+            android:paddingLeft="124dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥ 599"
+                android:textColor="@color/liji_material_red_700"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="库存200件"
+                android:textColor="@color/color_text_black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="请选择规格"
+                android:textColor="@color/color_text_black"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_mall"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/tu06" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="24dp"
+            android:src="@mipmap/ic_close" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <View style="@style/divider_line" />
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/sel_bg_add_address"
+        android:gravity="center"
+        android:text="确  定"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+</LinearLayout>

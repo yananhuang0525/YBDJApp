@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PKLibrary</string>
+    <string name="cbb_photoGet_makePhoto">拍照</string>
+    <string name="cbb_photoGet_select">从手机相册选择</string>
+    <string name="cbb_photoGet_cancel">取消</string>
+    <string name="cbb_photoGet_file_not_exit">文件不存在！</string>
+</resources>

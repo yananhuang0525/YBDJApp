@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <View style="@style/divider_line" />
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/main_footbar_radio"
+            android:checked="true"
+            android:drawableTop="@drawable/sel_bar_home_bg"
+            android:text="首页" />
+
+        <RadioButton
+            android:id="@+id/rb_shop"
+            style="@style/main_footbar_radio"
+            android:drawableTop="@drawable/sel_bar_shop_bg"
+            android:text="医药商城" />
+
+        <RadioButton
+            android:id="@+id/rb_buy"
+            style="@style/main_footbar_radio"
+            android:drawableTop="@drawable/sel_bar_buy_bg"
+            android:text="慢病购药" />
+
+        <RadioButton
+            android:id="@+id/rb_list"
+            style="@style/main_footbar_radio"
+            android:drawableTop="@drawable/sel_bar_list_bg"
+            android:text="列表清单" />
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            style="@style/main_footbar_radio"
+            android:drawableTop="@drawable/sel_bar_mine_bg"
+            android:text="我的" />
+
+    </RadioGroup>
+</LinearLayout>

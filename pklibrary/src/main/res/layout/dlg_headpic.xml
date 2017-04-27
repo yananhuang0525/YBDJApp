@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btn_makePhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sel_bg_tv"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="@string/cbb_photoGet_makePhoto"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <!--<View style="@style/sdk_base_divider" />-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/btn_fromCamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sel_bg_tv"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="@string/cbb_photoGet_select"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/btn_dimis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_top"
+            android:padding="13dp"
+            android:text="@string/cbb_photoGet_cancel"
+            android:textSize="18dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</LinearLayout>

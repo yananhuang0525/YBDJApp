@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_theme"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_home_logo" />
+
+            <LinearLayout
+                android:id="@+id/ll_search"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/sel_bg_et"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入药品名称、药店名称、症状"
+                    android:paddingLeft="2dp"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_search" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:adjustViewBounds="true"
+                    android:src="@mipmap/ic_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@mipmap/ic_address" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="配送至 : "
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.jude.rollviewpager.RollPagerView
+        android:id="@+id/rpv"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:rollviewpager_play_delay="3000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_collection"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_collection" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="我的收藏"
+                android:textColor="@color/text_black"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_nearby"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_nearby" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="附近药店"
+                android:textColor="@color/text_black"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_order"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_order" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="我的订单"
+                android:textColor="@color/text_black"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_query"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_query" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="账户查询"
+                android:textColor="@color/text_black"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="4dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_btico" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="家庭常备"
+            android:textColor="#3d3d3d"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/ll_look_more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看更多分类"
+                android:textColor="#666"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8px"
+                android:layout_marginRight="8px"
+                android:src="@mipmap/ic_more01" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
