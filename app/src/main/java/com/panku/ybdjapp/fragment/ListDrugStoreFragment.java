@@ -13,9 +13,6 @@ import com.panku.ybdjapp.adapter.ListDrugShopAdapter;
 import com.panku.ybdjapp.biz.DrugStoreInfo;
 import com.panku.ybdjapp.biz.NearbyShopInfo;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +21,18 @@ import java.util.List;
  * Date：2017/4/11
  * Time: 13:42
  * author: hyn
+ * 附近药店列表
  */
-@ContentView(R.layout.fg_nearby_list)
 public class ListDrugStoreFragment extends SupportMapFragment {
-    @ViewInject(R.id.rv_list)
     private RecyclerView rv_list;
     private ListDrugShopAdapter listDrugShopAdapter;
     private List<DrugStoreInfo> list;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        View view = x.view().inject(this, layoutInflater, viewGroup);
+//        View view = x.view().inject(this, layoutInflater, viewGroup);
+        View view = layoutInflater.inflate(R.layout.fg_nearby_list, viewGroup, false);
+        rv_list = (RecyclerView) view.findViewById(R.id.rv_list);
         init();
         return view;
     }

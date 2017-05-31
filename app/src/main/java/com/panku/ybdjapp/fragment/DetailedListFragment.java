@@ -15,9 +15,6 @@ import com.panku.ybdjapp.core.UserInfo;
 import com.panku.ybdjapp.http.HttpManager;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 /**
  * author： hyn
@@ -25,21 +22,25 @@ import org.xutils.x;
  * Date: 2017/4/5
  * Time: 15:06
  */
-@ContentView(R.layout.fg_detailed_list)
 public class DetailedListFragment extends Fragment {
-    @ViewInject(R.id.sv)
     private SpringView springView;
-    @ViewInject(R.id.rv_detailed_list)
     private RecyclerView rv_detailed_list;
     private HttpManager httpManager;
     private UserInfo userInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = x.view().inject(this, inflater, container);
+//        View view = x.view().inject(this, inflater, container);
+        View view = inflater.inflate(R.layout.fg_detailed_list, container, false);
+        initView(view);
         Log.i("HYN", "List==onCreate");
         init();
         return view;
+    }
+
+    private void initView(View view) {
+        springView = (SpringView) view.findViewById(R.id.sv);
+        rv_detailed_list = (RecyclerView) view.findViewById(R.id.rv_detailed_list);
     }
 
     private void init() {

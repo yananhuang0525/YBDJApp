@@ -22,38 +22,29 @@ import com.panku.ybdjapp.biz.AddressInfo;
 import com.panku.ybdjapp.core.UserInfo;
 import com.panku.ybdjapp.http.HttpManager;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
+import com.panku.ybdjapp.http.OkHttpHelp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
+
+import java.io.IOException;
+
+import okhttp3.Request;
 
 /**
  * Date：2017/4/21
  * Time: 14:06
  * author: hyn
+ * 添加修改收货地址
  */
-@ContentView(R.layout.ac_address_change)
-public class AddAddressActivity extends Activity {
-    @ViewInject(R.id.ll_back)
+public class AddAddressActivity extends Activity implements View.OnClickListener {
     private LinearLayout ll_back;//返回按钮
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;//标题
-    @ViewInject(R.id.ll_save)
     private LinearLayout ll_save;//保存
-    @ViewInject(R.id.et_name)
     private EditText et_name;//收货人姓名
-    @ViewInject(R.id.et_phone)
     private EditText et_phone;//收货人电话
-    @ViewInject(R.id.tv_area)
     private TextView tv_area;//所在地区
-    //    @ViewInject(R.id.tv_map)
-//    private TextView tv_map;//地图定位
-    @ViewInject(R.id.et_address)
     private EditText et_address;//详细地址
-    @ViewInject(R.id.cb_default)
     private CheckBox cb_default;//是否设置为默认地址
 
     private HttpManager httpManager;
@@ -64,8 +55,24 @@ public class AddAddressActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_address_change);
+        initView();
         init();
+    }
+
+    private void initView() {
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_area = (TextView) findViewById(R.id.tv_area);
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_phone = (EditText) findViewById(R.id.et_phone);
+        et_address = (EditText) findViewById(R.id.et_address);
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        ll_save = (LinearLayout) findViewById(R.id.ll_save);
+        cb_default = (CheckBox) findViewById(R.id.cb_default);
+        cb_default.setOnClickListener(this);
+        ll_back.setOnClickListener(this);
+        ll_save.setOnClickListener(this);
+        tv_area.setOnClickListener(this);
     }
 
     private void init() {
@@ -77,25 +84,6 @@ public class AddAddressActivity extends Activity {
             getAddressById(address_id);
         } else {
             tv_title.setText("添加收货地址");
-        }
-    }
-
-    @Event(value = {R.id.ll_back, R.id.ll_save, R.id.tv_area, R.id.cb_default})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-            case R.id.ll_save:
-                save();
-                break;
-            case R.id.tv_area:
-                startActivityForResult(new Intent(this, NearAddressActivity.class), 1000);
-//                selectCity();
-                break;
-            case R.id.cb_default:
-                isDefault = cb_default.isChecked();
-                break;
         }
     }
 
@@ -206,9 +194,14 @@ public class AddAddressActivity extends Activity {
                 }
             });
         } else {
-            httpManager.addNewAddress(new DialogLoadingView(this), userInfo.getId(), name, area + str_address, phone, "", "", isDefault, new HttpCallBack() {
+            httpManager.addNewAddress(new DialogLoadingView(this), userInfo.getId(), name, area + str_address, phone, "", "", isDefault, new OkHttpHelp.DataCallBack() {
                 @Override
-                public void onSuccess(String result) {
+                public void requestFailure(Request request, IOException e) {
+
+                }
+
+                @Override
+                public void requestSuccess(String result) throws Exception {
                     Log.i("HYN", "添加：" + result);
                     try {
                         JSONObject jsonObject = new JSONObject(result);
@@ -224,15 +217,34 @@ public class AddAddressActivity extends Activity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                }
-
-                @Override
-                public void onFail(Throwable errorMsg) {
-                    Log.e("HYN", errorMsg.getMessage().toString());
-                    ToastUtils.showToast("服务器连接失败");
                 }
             });
+//                @Override
+//                public void onSuccess(String result) {
+//                    Log.i("HYN", "添加：" + result);
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(result);
+//                        if (jsonObject.getString("status").equals("ok")) {
+//                            JSONObject object = new JSONObject(jsonObject.getString("response"));
+//                            if (object.getString("message").equals("success")) {
+//                                ToastUtils.showToast("收货地址添加成功");
+//                                finish();
+//                            } else {
+//                                ToastUtils.showToast("收货地址添加失败");
+//                            }
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onFail(Throwable errorMsg) {
+//                    Log.e("HYN", errorMsg.getMessage().toString());
+//                    ToastUtils.showToast("服务器连接失败");
+//                }
+//            });
         }
 
     }
@@ -245,6 +257,25 @@ public class AddAddressActivity extends Activity {
                 String tv = data.getStringExtra("Address");
                 tv_area.setText(tv);
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.ll_save:
+                save();
+                break;
+            case R.id.tv_area:
+                startActivityForResult(new Intent(this, NearAddressActivity.class), 1000);
+//                selectCity();
+                break;
+            case R.id.cb_default:
+                isDefault = cb_default.isChecked();
+                break;
         }
     }
 }

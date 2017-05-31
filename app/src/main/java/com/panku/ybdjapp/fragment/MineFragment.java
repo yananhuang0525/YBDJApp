@@ -30,13 +30,11 @@ import com.panku.ybdjapp.activity.RegisterActivity;
 import com.panku.ybdjapp.activity.SettingActivity;
 import com.panku.ybdjapp.adapter.HomeGVAdapter;
 import com.panku.ybdjapp.biz.ItemInfo;
+import com.panku.ybdjapp.core.Constant;
 import com.panku.ybdjapp.core.UserInfo;
+import com.panku.ybdjapp.http.OkHttpHelp;
 import com.panku.ybdjapp.utils.ImageLoaderUtil;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,19 +46,12 @@ import java.util.List;
  * Time: 15:06
  * 我的界面
  */
-@ContentView(R.layout.fg_mine)
-public class MineFragment extends Fragment implements BaseQuickAdapter.OnItemClickListener {
-    @ViewInject(R.id.rv_mine)
+public class MineFragment extends Fragment implements BaseQuickAdapter.OnItemClickListener, View.OnClickListener {
     private RecyclerView rv_mine;
-    @ViewInject(R.id.iv_user_head)
     private ImageView iv_user_head;//用户头像
-    @ViewInject(R.id.tv_user)
     private TextView tv_user;//用户名
-    @ViewInject(R.id.ll_btn)
     private LinearLayout ll_btn;//登录、注册布局
-    @ViewInject(R.id.tv_login)
     private TextView tv_login;//登录
-    @ViewInject(R.id.tv_register)
     private TextView tv_register;//注册
 
     private List<ItemInfo> list;
@@ -70,11 +61,23 @@ public class MineFragment extends Fragment implements BaseQuickAdapter.OnItemCli
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = x.view().inject(this, inflater, container);
+        View view = inflater.inflate(R.layout.fg_mine, container, false);
+        initView(view);
 //        initGridView();
         Log.i("HYN", "Mine==onCreate");
         initGV();
         return view;
+    }
+
+    private void initView(View view) {
+        rv_mine = (RecyclerView) view.findViewById(R.id.rv_mine);
+        iv_user_head = (ImageView) view.findViewById(R.id.iv_user_head);
+        tv_user = (TextView) view.findViewById(R.id.tv_user);
+        tv_login = (TextView) view.findViewById(R.id.tv_login);
+        tv_register = (TextView) view.findViewById(R.id.tv_register);
+        ll_btn = (LinearLayout) view.findViewById(R.id.ll_btn);
+        tv_login.setOnClickListener(this);
+        tv_register.setOnClickListener(this);
     }
 
     @Override
@@ -85,7 +88,7 @@ public class MineFragment extends Fragment implements BaseQuickAdapter.OnItemCli
             ll_btn.setVisibility(View.GONE);
             tv_user.setVisibility(View.VISIBLE);
             tv_user.setText(userInfo.getUsername());
-            ImageLoaderUtil.loadCircularHeadImg(iv_user_head, userInfo.getHead_pic(), true);
+            ImageLoaderUtil.loadImageView(iv_user_head, userInfo.getHead_pic());
         } else {
             ll_btn.setVisibility(View.VISIBLE);
             tv_user.setVisibility(View.GONE);
@@ -113,18 +116,6 @@ public class MineFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         rv_mine.setAdapter(homeAdapter);
         rv_mine.addItemDecoration(new DividerGridItemDecoration(getActivity()));
         homeAdapter.setOnItemClickListener(this);
-    }
-
-    @Event(value = {R.id.tv_login, R.id.tv_register})
-    private void onItemClick(View v) {
-        Intent intent = new Intent();
-        int id = v.getId();
-        if (id == R.id.tv_login) {
-            intent.setClass(getActivity(), LoginActivity.class);
-        } else if (id == R.id.tv_register) {
-            intent.setClass(getActivity(), RegisterActivity.class);
-        }
-        startActivity(intent);
     }
 
     @Override
@@ -183,5 +174,17 @@ public class MineFragment extends Fragment implements BaseQuickAdapter.OnItemCli
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionUtils.requestPermissionsResult(getActivity(), requestCode, permissions, grantResults, permissionGrant);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        int id = v.getId();
+        if (id == R.id.tv_login) {
+            intent.setClass(getActivity(), LoginActivity.class);
+        } else if (id == R.id.tv_register) {
+            intent.setClass(getActivity(), RegisterActivity.class);
+        }
+        startActivity(intent);
     }
 }

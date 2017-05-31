@@ -2,17 +2,16 @@ package com.panku.ybdjapp.http;
 
 import android.app.Dialog;
 
-import com.panku.pkBaseLibrary.http.HttpHelp;
 import com.panku.ybdjapp.core.Constant;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Request;
 
 /**
  * Date：2017/4/7
@@ -34,17 +33,28 @@ public class HttpManager {
         Map<String, String> params = new HashMap<String, String>();
         params.put("phone", userName);
         params.put("password", password);
-        HttpHelp.getInstance().post(dialog, Constant.PATH_LOGIN, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.postAsync(dialog, Constant.PATH_LOGIN, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().post(dialog, Constant.PATH_LOGIN, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -59,17 +69,28 @@ public class HttpManager {
         Map<String, String> params = new HashMap<String, String>();
         params.put("phone", userName);
         params.put("password", password);
-        HttpHelp.getInstance().post(dialog, Constant.PATH_REGISTER, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.postAsync(dialog, Constant.PATH_REGISTER, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().post(dialog, Constant.PATH_REGISTER, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -85,18 +106,29 @@ public class HttpManager {
         Map<String, String> params = new HashMap<String, String>();
         params.put("parent_cid", parent_cid);
         params.put("office_id", office_id);
-        params.put("level", level + "");
-        HttpHelp.getInstance().get(Constant.getCategoryBases, params, new HttpHelp.XCallBack() {
+        params.put("level", String.valueOf(level));
+        OkHttpHelp.getAsync(null, Constant.getCategoryBases, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().get(Constant.getCategoryBases, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -118,17 +150,28 @@ public class HttpManager {
         params.put("page_no", "1");
         params.put("page_size", "15");
         params.put("range", "" + range);
-        HttpHelp.getInstance().get(Constant.offices, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.getAsync(null, Constant.offices, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().get(Constant.offices, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -145,19 +188,30 @@ public class HttpManager {
         params.put("customer_id", customer_id);
         params.put("sex", sex);
         params.put("birthday", birthday);
-        Map<String, File> fileMap = new HashMap<>();
-        fileMap.put("head_pic", head_pic);
-        HttpHelp.getInstance().upLoadFile(dialog, Constant.update_profile, params, fileMap, new HttpHelp.XCallBack() {
+//        Map<String, File> fileMap = new HashMap<>();
+//        fileMap.put("head_pic", head_pic);
+        OkHttpHelp.postUploadFile(dialog, Constant.update_profile, params, "head_pic", head_pic, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().upLoadFile(dialog, Constant.update_profile, params, fileMap, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -176,17 +230,28 @@ public class HttpManager {
         params.put("name", name);
         params.put("id_card", id_card);
         params.put("insurance_card", insurance_card);
-        HttpHelp.getInstance().post(dialog, Constant.bind, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.postAsync(dialog, Constant.bind, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().post(dialog, Constant.bind, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -199,17 +264,28 @@ public class HttpManager {
     public void unbind(Dialog dialog, String customer_id, final HttpCallBack callBack) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("customer_id", customer_id);
-        HttpHelp.getInstance().post(dialog, Constant.unbind, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.postAsync(dialog, Constant.unbind, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().post(dialog, Constant.unbind, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -221,17 +297,28 @@ public class HttpManager {
     public void query(String customer_id, final HttpCallBack callBack) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("customer_id", customer_id);
-        HttpHelp.getInstance().get(Constant.query, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.getAsync(null, Constant.query, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().get(Constant.query, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -241,17 +328,28 @@ public class HttpManager {
      * @param callBack
      */
     public void getCode(String phone, final HttpCallBack callBack) {
-        HttpHelp.getInstance().get(Constant.get_code + phone, null, new HttpHelp.XCallBack() {
+        OkHttpHelp.getAsync(null, Constant.get_code + phone, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().get(Constant.get_code + phone, null, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -266,17 +364,28 @@ public class HttpManager {
         Map<String, String> params = new HashMap<String, String>();
         params.put("phone", phone);
         params.put("new_password", new_password);
-        HttpHelp.getInstance().post(dialog, Constant.change_pwd, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.postAsync(dialog, Constant.change_pwd, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().post(dialog, Constant.change_pwd, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -285,20 +394,21 @@ public class HttpManager {
      * @param customer_id 用户ID
      * @param callBack
      */
-    public void getAddressList(String customer_id, final HttpCallBack callBack) {
+    public void getAddressList(String customer_id, final OkHttpHelp.DataCallBack callBack) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("customer_id", customer_id);
-        HttpHelp.getInstance().get(Constant.addresses, params, new HttpHelp.XCallBack() {
-            @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
-            }
-
-            @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
-            }
-        });
+        OkHttpHelp.getAsync(null, Constant.addresses, params, callBack);
+//        HttpHelp.getInstance().get(Constant.addresses, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
     //    customer_id  String  是  用户 ID
 //    consigee  String  是  收货人
@@ -321,7 +431,7 @@ public class HttpManager {
      * @param is_default  是否为默认收货地址
      * @param callBack
      */
-    public void addNewAddress(Dialog dialog, String customer_id, String consignee, String address, String phone, String lat, String lng, boolean is_default, final HttpCallBack callBack) {
+    public void addNewAddress(Dialog dialog, String customer_id, String consignee, String address, String phone, String lat, String lng, boolean is_default, final OkHttpHelp.DataCallBack callBack) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("customer_id", customer_id);
         params.put("consignee", consignee);
@@ -330,17 +440,18 @@ public class HttpManager {
         params.put("lat", lat);
         params.put("lng", lng);
         params.put("is_default", is_default + "");
-        HttpHelp.getInstance().post(dialog, Constant.address_create, params, new HttpHelp.XCallBack() {
-            @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
-            }
-
-            @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
-            }
-        });
+        OkHttpHelp.postAsync(dialog, Constant.address_create, params, callBack);
+//        HttpHelp.getInstance().post(dialog, Constant.address_create, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -353,17 +464,28 @@ public class HttpManager {
     public void deleteAddress(Dialog dialog, String address_id, final HttpCallBack callBack) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("address_id", address_id);
-        HttpHelp.getInstance().post(dialog, Constant.remove, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.postAsync(dialog, Constant.remove, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().post(dialog, Constant.remove, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 //    address_id  String  是  收货地址 ID
 //    consigee  String  是  收货人
@@ -395,17 +517,28 @@ public class HttpManager {
         params.put("lat", lat);
         params.put("lng", lng);
         params.put("is_default", is_default + "");
-        HttpHelp.getInstance().post(dialog, Constant.update, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.postAsync(dialog, Constant.update, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().post(dialog, Constant.update, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -418,17 +551,28 @@ public class HttpManager {
 //        Map<String, String> params = new HashMap<String, String>();
 //        params.put("customer_id", customer_id);
         String url = "/" + address_id;
-        HttpHelp.getInstance().get(Constant.addresses + url, null, new HttpHelp.XCallBack() {
+        OkHttpHelp.getAsync(null, Constant.addresses + url, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().get(Constant.addresses + url, null, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -450,17 +594,28 @@ public class HttpManager {
         params.put("status", status);
         params.put("shipping_status", shipping_status);
         params.put("pay_status", pay_status);
-        HttpHelp.getInstance().get(Constant.orders, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.getAsync(null, Constant.orders, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().get(Constant.orders, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -484,17 +639,28 @@ public class HttpManager {
         params.put("is_hot", is_hot + "");
         params.put("page_no", page_no + "");
         params.put("page_size", page_size + "");
-        HttpHelp.getInstance().get(dialog, Constant.goods, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.getAsync(dialog, Constant.goods, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callBack.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callBack.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().get(dialog, Constant.goods, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
@@ -509,47 +675,150 @@ public class HttpManager {
         Map<String, String> params = new HashMap<String, String>();
         params.put("id", id);
         params.put("customer_id", customer_id);
-        HttpHelp.getInstance().get(dialog, Constant.goods + "/" + id, params, new HttpHelp.XCallBack() {
+        OkHttpHelp.getAsync(dialog, Constant.goods + "/" + id, params, new OkHttpHelp.DataCallBack() {
             @Override
-            public void onSuccess(String result) {
-                callback.onSuccess(result);
+            public void requestFailure(Request request, IOException e) {
+                callback.onFail(e);
             }
 
             @Override
-            public void onError(Throwable errorMsg) {
-                callback.onFail(errorMsg);
+            public void requestSuccess(String result) throws Exception {
+                callback.onSuccess(result);
             }
         });
+//        HttpHelp.getInstance().get(dialog, Constant.goods + "/" + id, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callback.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callback.onFail(errorMsg);
+//            }
+//        });
+    }
+
+    //    customer_id  String  用户 ID
+//    goods_id  String  商品 ID
+//    goods_num  Integer  商品数量
+//    spec_str  String
+//    商品规格
+//    （Specbaseid:规
+//    格项）
+
+    /**
+     * 添加商品到购物车中
+     *
+     * @param dialog
+     * @param customer_id 用户ID
+     * @param goods_id    商品ID
+     * @param goods_num   商品数量
+     * @param spec_str    商品规格
+     * @param callBack
+     */
+    public void cars_create(Dialog dialog, String customer_id, String goods_id, int goods_num, String spec_str, final HttpCallBack callBack) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("customer_id", customer_id);
+        params.put("goods_id", goods_id);
+        params.put("goods_num", String.valueOf(goods_num));
+        params.put("spec_str", spec_str);
+        OkHttpHelp.postAsync(dialog, Constant.cars_create, params, new OkHttpHelp.DataCallBack() {
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
+            }
+
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
+            }
+        });
+//        HttpHelp.getInstance().post(dialog, Constant.cars_create, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
+    }
+
+    /**
+     * 获取购物车列表
+     *
+     * @param customer_id 用户ID
+     * @param callBack
+     */
+    public void getCarsList(String customer_id, final HttpCallBack callBack) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("customer_id", customer_id);
+        OkHttpHelp.getAsync(null, Constant.cars, params, new OkHttpHelp.DataCallBack() {
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                callBack.onFail(e);
+            }
+
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                callBack.onSuccess(result);
+            }
+        });
+//        HttpHelp.getInstance().get(Constant.cars, params, new HttpHelp.XCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onError(Throwable errorMsg) {
+//                callBack.onFail(errorMsg);
+//            }
+//        });
     }
 
     /**
      * 下载图片
      */
-    public void downLoadImage(String url, String filepath, final HttpHelp.XCallBack callback) {
-        RequestParams params = new RequestParams(url);
-        //设置断点续传
-        params.setAutoResume(true);
-        params.setSaveFilePath(filepath);
-        x.http().get(params, new Callback.CommonCallback<File>() {
-            @Override
-            public void onSuccess(File result) {
-                callback.onSuccess(result.getAbsolutePath());
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                callback.onError(ex);
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
+//    public void downLoadImage(String url, String filepath, String fileName, final HttpHelp.XCallBack callback) {
+//        RequestParams params = new RequestParams(url);
+//        //设置断点续传
+//        params.setAutoResume(true);
+//        params.setSaveFilePath(filepath);
+//        OkHttpHelp.downloadAsync(url, filepath, fileName, new OkHttpHelp.DataCallBack() {
+//            @Override
+//            public void requestFailure(Request request, IOException e) {
+//                callback.onError(e);
+//            }
+//
+//            @Override
+//            public void requestSuccess(String result) throws Exception {
+//                callback.onSuccess(result);
+//            }
+//        });
+////        x.http().get(params, new Callback.CommonCallback<File>() {
+////            @Override
+////            public void onSuccess(File result) {
+////                callback.onSuccess(result.getAbsolutePath());
+////            }
+////
+////            @Override
+////            public void onError(Throwable ex, boolean isOnCallback) {
+////                callback.onError(ex);
+////            }
+////
+////            @Override
+////            public void onCancelled(CancelledException cex) {
+////
+////            }
+////
+////            @Override
+////            public void onFinished() {
+////
+////            }
+////        });
+//    }
 }

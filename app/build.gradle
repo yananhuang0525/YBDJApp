@@ -28,4 +28,5 @@ dependencies {
     //    compile 'com.bigkoo:convenientbanner:2.0.5'//广告轮播 https://github.com/saiwu-bigkoo/Android-ConvenientBanner
     compile 'com.jude:rollviewpager:1.4.6'//https://github.com/Jude95/RollViewPager
     //广告轮播 https://github.com/Jude95/RollViewPager
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
 }

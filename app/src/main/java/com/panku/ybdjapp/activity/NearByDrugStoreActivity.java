@@ -12,15 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.panku.pkBaseLibrary.util.PermissionUtils;
 import com.panku.ybdjapp.R;
 import com.panku.ybdjapp.fragment.ListDrugStoreFragment;
 import com.panku.ybdjapp.fragment.MapFragment;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,19 +24,12 @@ import java.util.List;
  * Date：2017/4/11
  * Time: 10:42
  * author: hyn
+ * 附近药店界面
  */
-@ContentView(R.layout.ac_nearby_drug_store)
 public class NearByDrugStoreActivity extends FragmentActivity {
-    @ViewInject(R.id.ll_back)
     private LinearLayout ll_back;
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;
-    @ViewInject(R.id.rg)
     private RadioGroup rg;
-    //    @ViewInject(R.id.tl)
-//    private TabLayout mTabLayout;
-//    @ViewInject(R.id.vp)
-//    private ViewPager mViewPager;
     private List<Fragment> fragments = new ArrayList<>();//页卡视图集合
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
     private Fragment mapFragment = new MapFragment();
@@ -52,7 +40,8 @@ public class NearByDrugStoreActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_nearby_drug_store);
+        initView();
         tv_title.setText("附近药店");
         fragmentManager = getSupportFragmentManager();
         fragments.add(mapFragment);
@@ -61,13 +50,16 @@ public class NearByDrugStoreActivity extends FragmentActivity {
 //        init();
     }
 
-    @Event(value = {R.id.ll_back})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
+    private void initView() {
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        rg = (RadioGroup) findViewById(R.id.rg);
+        ll_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
-                break;
-        }
+            }
+        });
     }
 
     private void initTitleBar() {

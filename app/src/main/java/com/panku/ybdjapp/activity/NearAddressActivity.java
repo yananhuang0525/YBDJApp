@@ -30,10 +30,6 @@ import com.panku.ybdjapp.R;
 import com.panku.ybdjapp.adapter.ListDrugShopAdapter;
 import com.panku.ybdjapp.biz.DrugStoreInfo;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +38,12 @@ import java.util.List;
  * Date：2017/4/24
  * Time: 10:34
  * author: hyn
+ * 搜索出来的附近地址界面
  */
-@ContentView(R.layout.ac_near_address)
 public class NearAddressActivity extends Activity implements LocationSource, AMapLocationListener, PoiSearch.OnPoiSearchListener, BaseQuickAdapter.OnItemClickListener {
-    @ViewInject(R.id.ll_back)
     private LinearLayout ll_back;//返回按钮
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;//标题
-    @ViewInject(R.id.mv)
     private MapView mv;
-    @ViewInject(R.id.rv_near)
     private RecyclerView rv_near;
     private AMap amap;
     private LocationSource.OnLocationChangedListener mListener;
@@ -64,7 +56,7 @@ public class NearAddressActivity extends Activity implements LocationSource, AMa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_near_address);
         tv_title.setText("附近");
         mv.onCreate(savedInstanceState);
         amap = mv.getMap();
@@ -74,14 +66,19 @@ public class NearAddressActivity extends Activity implements LocationSource, AMa
 
     }
 
-    @Event(value = {R.id.ll_back})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
+    private void initView() {
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        mv = (MapView) findViewById(R.id.mv);
+        rv_near = (RecyclerView) findViewById(R.id.rv_near);
+        ll_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
-                break;
-        }
+            }
+        });
     }
+
 
     private void setUpMap() {
         // 自定义系统定位小蓝点

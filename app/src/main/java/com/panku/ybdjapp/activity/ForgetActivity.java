@@ -20,10 +20,6 @@ import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 /**
  * author： hyn
@@ -32,31 +28,18 @@ import org.xutils.x;
  * Time: 15:28
  * 忘记密码界面
  */
-@ContentView(R.layout.ac_forget)
-public class ForgetActivity extends Activity {
-    @ViewInject(R.id.ll_back)
+public class ForgetActivity extends Activity implements View.OnClickListener {
     private LinearLayout ll_back;//返回按钮
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;//标题
-    @ViewInject(R.id.tv_two)
     private TextView tv_two;//
-    @ViewInject(R.id.tv_two_text)
     private TextView tv_two_text;//
-    @ViewInject(R.id.ll_one)
     private LinearLayout ll_one;//获取验证码布局
-    @ViewInject(R.id.et_phone)
     private EditText et_phone;//手机号码
-    @ViewInject(R.id.et_code)
     private EditText et_code;//验证码
-    @ViewInject(R.id.tv_get_code)
     private TextView tv_get_code;//获取验证码
-    @ViewInject(R.id.ll_two)
     private LinearLayout ll_two;//设置新密码布局
-    @ViewInject(R.id.et_pass)
     private EditText et_pass;
-    @ViewInject(R.id.et_pass_again)
     private EditText et_pass_again;
-    @ViewInject(R.id.tv_next)
     private TextView tv_next;//下一步
     private HttpManager httpManager;
 
@@ -65,24 +48,29 @@ public class ForgetActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_forget);
+        initView();
         tv_title.setText("找回密码");
         httpManager = new HttpManager();
     }
 
-    @Event(value = {R.id.ll_back, R.id.tv_get_code, R.id.tv_next})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-            case R.id.tv_get_code:
-                getCode();
-                break;
-            case R.id.tv_next:
-                next();
-                break;
-        }
+    private void initView() {
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        ll_one = (LinearLayout) findViewById(R.id.ll_one);
+        ll_two = (LinearLayout) findViewById(R.id.ll_two);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_two = (TextView) findViewById(R.id.tv_two);
+        tv_two_text = (TextView) findViewById(R.id.tv_two_text);
+        et_phone = (EditText) findViewById(R.id.et_phone);
+        et_code = (EditText) findViewById(R.id.et_code);
+        et_phone = (EditText) findViewById(R.id.et_phone);
+        tv_get_code = (TextView) findViewById(R.id.tv_get_code);
+        et_pass = (EditText) findViewById(R.id.et_pass);
+        et_pass_again = (EditText) findViewById(R.id.et_pass_again);
+        tv_next = (TextView) findViewById(R.id.tv_next);
+        ll_back.setOnClickListener(this);
+        tv_get_code.setOnClickListener(this);
+        tv_next.setOnClickListener(this);
     }
 
     private void next() {
@@ -204,4 +192,19 @@ public class ForgetActivity extends Activity {
             timer.cancel();
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.tv_get_code:
+                getCode();
+                break;
+            case R.id.tv_next:
+                next();
+                break;
+        }
+    }
 }

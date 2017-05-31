@@ -20,10 +20,6 @@ import com.panku.ybdjapp.R;
 import com.panku.ybdjapp.http.HttpManager;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 /**
  * author： hyn
@@ -32,58 +28,46 @@ import org.xutils.x;
  * Time: 15:27
  * 会员注册界面
  */
-@ContentView(R.layout.ac_register)
-public class RegisterActivity extends Activity {
-    @ViewInject(R.id.et_phone)
+public class RegisterActivity extends Activity implements View.OnClickListener {
     private EditText et_phone;//手机号码
-    @ViewInject(R.id.et_code)
     private EditText et_code;//验证码
-    @ViewInject(R.id.et_pass)
     private EditText et_pass;//密码
-    @ViewInject(R.id.et_again)
     private EditText et_again;//再次输入密码
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;//标题
-    @ViewInject(R.id.tv_get_code)
     private TextView tv_get_code;//获取验证码
-    @ViewInject(R.id.tv_login)
     private TextView tv_login;//登陆
-    @ViewInject(R.id.tv_register)
     private TextView tv_register;//注册
-    @ViewInject(R.id.ll_back)
     private LinearLayout ll_back;//返回按钮
-    @ViewInject(R.id.iv_code)
     private ImageView iv_code;//验证码图片
-    @ViewInject(R.id.cb)
     private CheckBox cb;
     private HttpManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_register);
+        initView();
         manager = new HttpManager();
         tv_title.setText("会员注册");
         iv_code.setImageBitmap(BitmapCodeUtils.getInstance().createBitmap());
     }
 
-    @Event(value = {R.id.ll_back, R.id.iv_code, R.id.tv_login, R.id.tv_register})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-            case R.id.iv_code:
-                iv_code.setImageBitmap(BitmapCodeUtils.getInstance().createBitmap());
-                break;
-            case R.id.tv_login:
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
-                break;
-            case R.id.tv_register:
-                register();
-                break;
-        }
+    private void initView() {
+        et_phone = (EditText) findViewById(R.id.et_phone);
+        et_code = (EditText) findViewById(R.id.et_code);
+        et_pass = (EditText) findViewById(R.id.et_pass);
+        et_again = (EditText) findViewById(R.id.et_again);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_get_code = (TextView) findViewById(R.id.tv_get_code);
+        tv_login = (TextView) findViewById(R.id.tv_login);
+        tv_register = (TextView) findViewById(R.id.tv_register);
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        iv_code = (ImageView) findViewById(R.id.iv_code);
+        cb = (CheckBox) findViewById(R.id.cb);
+        ll_back.setOnClickListener(this);
+        iv_code.setOnClickListener(this);
+        tv_register.setOnClickListener(this);
+        tv_login.setOnClickListener(this);
     }
 
     /**
@@ -146,4 +130,23 @@ public class RegisterActivity extends Activity {
             timer.cancel();
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.iv_code:
+                iv_code.setImageBitmap(BitmapCodeUtils.getInstance().createBitmap());
+                break;
+            case R.id.tv_login:
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                break;
+            case R.id.tv_register:
+                register();
+                break;
+        }
+    }
 }

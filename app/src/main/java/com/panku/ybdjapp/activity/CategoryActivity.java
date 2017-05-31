@@ -25,10 +25,6 @@ import com.panku.ybdjapp.fragment.HomeFragment;
 import com.panku.ybdjapp.http.HttpManager;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +35,17 @@ import java.util.List;
  * author: hyn
  * 商品类目
  */
-@ContentView(R.layout.ac_category)
 public class CategoryActivity extends Activity {
-    @ViewInject(R.id.ll_back)
     private LinearLayout ll_back;
-    @ViewInject(R.id.et_search)
     private EditText et_search;
-    @ViewInject(R.id.rv)
     private RecyclerView rv;
     private CategoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_category);
+        initView();
         rv.setLayoutManager(new LinearLayoutManager(this));
 //        Log.e("HYN", "More" + HomeFragment.categories);
         adapter = new CategoryAdapter(HomeFragment.categories);
@@ -70,13 +63,16 @@ public class CategoryActivity extends Activity {
 //        expandAll();
     }
 
-    @Event(value = {R.id.ll_back})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
+    private void initView() {
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        et_search = (EditText) findViewById(R.id.et_search);
+        rv = (RecyclerView) findViewById(R.id.rv);
+        ll_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
-                break;
-        }
+            }
+        });
     }
 
     /**

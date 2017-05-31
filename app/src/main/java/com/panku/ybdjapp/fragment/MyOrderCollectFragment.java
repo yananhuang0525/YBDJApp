@@ -8,19 +8,16 @@ import android.view.ViewGroup;
 
 import com.panku.ybdjapp.R;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.x;
 
 /**
  * Date：2017/4/24
  * Time: 16:44
  * author: hyn
  */
-@ContentView(R.layout.fg_my_oredr_collect_goods)
 public class MyOrderCollectFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = x.view().inject(this, inflater, container);
+        View view = inflater.inflate(R.layout.fg_my_oredr_collect_goods, container, false);
         return view;
     }
 }

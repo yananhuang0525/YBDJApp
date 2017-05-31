@@ -19,11 +19,6 @@ import com.panku.ybdjapp.fragment.MyOrderFinishFragment;
 import com.panku.ybdjapp.fragment.MyOrderPaymentFragment;
 import com.panku.ybdjapp.fragment.MyOrderSendFragment;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,15 +27,10 @@ import java.util.List;
  * Time: 16:29
  * author: hyn
  */
-@ContentView(R.layout.ac_my_order)
 public class MyOrderActivity extends FragmentActivity {
-    @ViewInject(R.id.ll_back)
     private LinearLayout ll_back;
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;
-    @ViewInject(R.id.tl)
     private TabLayout mTabLayout;
-    @ViewInject(R.id.vp)
     private ViewPager mViewPager;
     private List<Fragment> fragments = new ArrayList<>();//页卡视图集合
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
@@ -55,11 +45,23 @@ public class MyOrderActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+       setContentView(R.layout.ac_my_order);
+        initView();
         tv_title.setText("我的订单");
         init();
     }
-
+    private void initView() {
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        mTabLayout = (TabLayout) findViewById(R.id.tl);
+        mViewPager = (ViewPager) findViewById(R.id.vp);
+        ll_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
     private void init() {
         fragmentManager = getSupportFragmentManager();
         //添加fragment
@@ -83,14 +85,5 @@ public class MyOrderActivity extends FragmentActivity {
         myOrderAdapter = new MyOrderAdapter(fragmentManager, fragments, mTitleList);
         mViewPager.setAdapter(myOrderAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-    }
-
-    @Event(value = {R.id.ll_back})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-        }
     }
 }

@@ -23,11 +23,6 @@ import com.panku.ybdjapp.biz.GoodsListInfo;
 import com.panku.ybdjapp.http.HttpManager;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
 import java.util.List;
 
 /**
@@ -36,13 +31,9 @@ import java.util.List;
  * author: hyn
  * 商品列表
  */
-@ContentView(R.layout.ac_goods_list)
 public class GoodsListActivity extends Activity implements BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener {
-    @ViewInject(R.id.ll_back)
     private LinearLayout ll_back;//返回按钮
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;//标题
-    @ViewInject(R.id.rv_goods)
     private RecyclerView rv_goods;//商品列表
     private HttpManager httpManager;
     private GoodsListAdapter goodsListAdapter;
@@ -53,11 +44,20 @@ public class GoodsListActivity extends Activity implements BaseQuickAdapter.OnIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_goods_list);
         init();
     }
 
     private void init() {
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        rv_goods = (RecyclerView) findViewById(R.id.rv_goods);
+        ll_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         httpManager = new HttpManager();
         categoryName = getIntent().getStringExtra("categoryName");
         categoryId = getIntent().getStringExtra("categoryId");
@@ -102,14 +102,6 @@ public class GoodsListActivity extends Activity implements BaseQuickAdapter.OnIt
         });
     }
 
-    @Event(value = {R.id.ll_back})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-        }
-    }
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

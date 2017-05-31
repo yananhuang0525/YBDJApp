@@ -23,33 +23,27 @@ import com.panku.ybdjapp.biz.AddressInfo;
 import com.panku.ybdjapp.core.UserInfo;
 import com.panku.ybdjapp.http.HttpManager;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
+import com.panku.ybdjapp.http.OkHttpHelp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
 
 /**
  * Date：2017/4/21
  * Time: 11:19
  * author: hyn
  */
-@ContentView(R.layout.ac_address_manager)
-public class AddressManagerActivity extends Activity {
-    @ViewInject(R.id.ll_back)
+public class AddressManagerActivity extends Activity implements View.OnClickListener {
     private LinearLayout ll_back;//返回按钮
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;//标题
-    @ViewInject(R.id.tv_prompt)
     private TextView tv_prompt;//当没有设置收货地址时显示的提示信息
-    @ViewInject(R.id.rv_address)
     private RecyclerView rv_address;
-    @ViewInject(R.id.tv_add_address)
     private TextView tv_add_address;//添加新收货地址
 
     private HttpManager httpManager;
@@ -60,10 +54,21 @@ public class AddressManagerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_address_manager);
+        initView();
         tv_title.setText("收货地址管理");
         httpManager = new HttpManager();
         userInfo = SharedPreferencesUtil.getMobileLoginInfo(this, UserInfo.class);
+    }
+
+    private void initView() {
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_prompt = (TextView) findViewById(R.id.tv_prompt);
+        tv_add_address = (TextView) findViewById(R.id.tv_add_address);
+        rv_address = (RecyclerView) findViewById(R.id.rv_address);
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        ll_back.setOnClickListener(this);
+        tv_add_address.setOnClickListener(this);
     }
 
     @Override
@@ -72,36 +77,33 @@ public class AddressManagerActivity extends Activity {
         getAddressList();
     }
 
-    @Event(value = {R.id.ll_back, R.id.tv_add_address})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-            case R.id.tv_add_address:
-                Intent intent = new Intent(AddressManagerActivity.this, AddAddressActivity.class);
-                intent.putExtra("address_id", "");
-                startActivity(intent);
-                break;
-        }
-    }
-
     /**
      * 获取收货地址列表
      */
     private void getAddressList() {
-        httpManager.getAddressList(userInfo.getId(), new HttpCallBack() {
-            @Override
-            public void onSuccess(String result) {
-                Log.i("HYN", "收货地址：" + result);
-                setData(result);
-            }
+        httpManager.getAddressList(userInfo.getId(), new OkHttpHelp.DataCallBack() {
+                    @Override
+                    public void requestFailure(Request request, IOException e) {
 
-            @Override
-            public void onFail(Throwable errorMsg) {
+                    }
 
-            }
-        });
+                    @Override
+                    public void requestSuccess(String result) throws Exception {
+//                        Log.i("HYN", "收货地址：" + result);
+                        setData(result);
+                    }
+                }
+//            @Override
+//            public void onSuccess(String result) {
+//                Log.i("HYN", "收货地址：" + result);
+//                setData(result);
+//            }
+//
+////            @Override
+//            public void onFail(Throwable errorMsg) {
+//
+//            }
+        );
     }
 
     private void setData(String result) {
@@ -207,5 +209,19 @@ public class AddressManagerActivity extends Activity {
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.tv_add_address:
+                Intent intent = new Intent(AddressManagerActivity.this, AddAddressActivity.class);
+                intent.putExtra("address_id", "");
+                startActivity(intent);
+                break;
+        }
     }
 }

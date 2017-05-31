@@ -31,6 +31,21 @@ public class JsonMapUtil {
         jsonStr += "}";
         return jsonStr;
     }
+    public static String simpleMapToStr(Map<String, String> map) {
+        if (map == null || map.isEmpty()) {
+            return "null";
+        }
+//        String jsonStr = "\"";
+        String jsonStr = "";
+        Set<?> keySet = map.keySet();
+        for (Object key : keySet) {
+            jsonStr +=  key + ":" + map.get(key) + ",";
+        }
+        jsonStr = jsonStr.substring(0, jsonStr.length() - 1);
+//        jsonStr += "\"";
+        jsonStr += "";
+        return jsonStr;
+    }
     /**
      * Json 转成 Map<>
      * @param jsonStr

@@ -21,39 +21,23 @@ import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
 /**
  * Date：2017/4/20
  * Time: 14:18
  * author: hyn
+ * 社保卡管理界面
  */
-@ContentView(R.layout.ac_card_manager)
-public class CardManagerActivity extends Activity {
-    @ViewInject(R.id.ll_back)
+public class CardManagerActivity extends Activity implements View.OnClickListener{
     private LinearLayout ll_back;
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;
-    @ViewInject(R.id.ll_input)
     private LinearLayout ll_input;//输入布局
-    @ViewInject(R.id.et_name)
     private EditText et_name;//姓名
-    @ViewInject(R.id.et_card_num)
     private EditText et_card_num;//社保号码
-    @ViewInject(R.id.et_card_code)
     private EditText et_card_code;//社保卡号
-    @ViewInject(R.id.ll_show)
     private LinearLayout ll_show;//显示布局
-    @ViewInject(R.id.tv_name)
     private TextView tv_name;
-    @ViewInject(R.id.tv_card_num)
     private TextView tv_card_num;
-    @ViewInject(R.id.tv_card_code)
     private TextView tv_card_code;
-    @ViewInject(R.id.tv_btn)
     private TextView tv_btn;
 
     private HttpManager httpManager;
@@ -63,8 +47,25 @@ public class CardManagerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_card_manager);
+        initView();
         init();
+    }
+
+    private void initView() {
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        ll_input = (LinearLayout) findViewById(R.id.ll_input);
+        ll_show = (LinearLayout) findViewById(R.id.ll_show);
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_card_num = (EditText) findViewById(R.id.et_card_num);
+        et_card_code = (EditText) findViewById(R.id.et_card_code);
+        tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_card_num = (TextView) findViewById(R.id.tv_card_num);
+        tv_card_code = (TextView) findViewById(R.id.tv_card_code);
+        tv_btn = (TextView) findViewById(R.id.tv_btn);
+        ll_back.setOnClickListener(this);
+        tv_btn.setOnClickListener(this);
     }
 
     private void init() {
@@ -85,22 +86,6 @@ public class CardManagerActivity extends Activity {
                 ll_show.setVisibility(View.GONE);
                 tv_btn.setText("绑定社保卡");
             }
-        }
-    }
-
-    @Event(value = {R.id.ll_back, R.id.tv_btn})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-            case R.id.tv_btn:
-                if (tv_btn.getText().toString().equals("解除绑定")) {
-                    unbindCard();
-                } else if (tv_btn.getText().toString().equals("绑定社保卡")) {
-                    bindCard();
-                }
-                break;
         }
     }
 
@@ -182,5 +167,21 @@ public class CardManagerActivity extends Activity {
                 Log.e("HYN", "社保卡获取失败" + errorMsg.getMessage().toString());
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.tv_btn:
+                if (tv_btn.getText().toString().equals("解除绑定")) {
+                    unbindCard();
+                } else if (tv_btn.getText().toString().equals("绑定社保卡")) {
+                    bindCard();
+                }
+                break;
+        }
     }
 }

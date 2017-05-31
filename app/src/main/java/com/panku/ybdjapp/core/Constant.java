@@ -11,7 +11,8 @@ public class Constant {
 //    private static String BASE_URL = "http://116.255.137.170:8080/001/f/v1";
 //    public static UserInfo UserInfo = null;//用户信息
 //    public static String BASE_URL = "http://192.168.1.182:8082/001";
-    public static String BASE_URL = "http://yibaodaojia.com:8036";
+//    public static String BASE_URL = "http://yibaodaojia.com:8036";
+    public static String BASE_URL = "http://yibaodaojia.com:8082";
     public static String PATH_LOGIN = BASE_URL + "/f/v1/customers/authentication";//登录接口
     public static String PATH_REGISTER = BASE_URL + "/f/v1/customers/regist";//注册接口
     public static String getCategoryBases = BASE_URL + "/f/v1/categorybases";//获取类目列表

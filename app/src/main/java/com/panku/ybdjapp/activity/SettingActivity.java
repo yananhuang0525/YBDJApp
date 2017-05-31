@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.panku.pkBaseLibrary.http.HttpHelp;
 import com.panku.pkBaseLibrary.util.FileHelp;
 import com.panku.pkBaseLibrary.util.PermissionUtils;
 import com.panku.pkBaseLibrary.util.SharedPreferencesUtil;
@@ -39,10 +38,6 @@ import com.panku.ybdjapp.utils.ImageLoaderUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.io.File;
 
@@ -50,26 +45,17 @@ import java.io.File;
  * Date：2017/4/20
  * Time: 9:54
  * author: hyn
+ * 设置个人信息
  */
-@ContentView(R.layout.ac_setting)
-public class SettingActivity extends AppCompatActivity {
-    @ViewInject(R.id.ll_back)
+public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout ll_back;
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;
-    @ViewInject(R.id.iv_user_head)
     private ImageView iv_user_head;//头像
-    @ViewInject(R.id.tv_select)
     private TextView tv_select;//选择图片
-    @ViewInject(R.id.tv_user_name)
     private TextView tv_user_name;//用户名
-    @ViewInject(R.id.tv_birthday)
     private TextView tv_birthday;//出生日期
-    @ViewInject(R.id.tv_change)
     private TextView tv_change;//修改信息
-    @ViewInject(R.id.tv_out)
     private TextView tv_out;//退出登录
-    @ViewInject(R.id.radioGroup)
     private RadioGroup radioGroup;
     private PhotoGetHelper photoGetHelper;
     private HttpManager httpManager;
@@ -81,7 +67,8 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_setting);
+        initView();
         init();
     }
 
@@ -91,29 +78,47 @@ public class SettingActivity extends AppCompatActivity {
         PermissionUtils.requestPermission(this, PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE, permissionGrant);
     }
 
+    private void initView() {
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_select = (TextView) findViewById(R.id.tv_select);
+        tv_user_name = (TextView) findViewById(R.id.tv_user_name);
+        tv_birthday = (TextView) findViewById(R.id.tv_birthday);
+        tv_change = (TextView) findViewById(R.id.tv_change);
+        tv_out = (TextView) findViewById(R.id.tv_out);
+        iv_user_head = (ImageView) findViewById(R.id.iv_user_head);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        ll_back.setOnClickListener(this);
+        tv_select.setOnClickListener(this);
+        tv_birthday.setOnClickListener(this);
+        tv_change.setOnClickListener(this);
+        tv_out.setOnClickListener(this);
+    }
+
     private void init() {
         photoGetHelper = new PhotoGetHelper(this);
         httpManager = new HttpManager();
         tv_title.setText("基本信息管理");
         userInfo = SharedPreferencesUtil.getMobileLoginInfo(this, UserInfo.class);
         if (userInfo != null) {
-            String savePath = FileHelp.getSaveFilePath() + "photo_img.png";
+            String savePath = FileHelp.getSaveFilePath();
 //            String savePath = "http://www.kongtu.com/9387630196_image.jpg";
             if (userInfo.getHead_pic().length() > 0) {
-                httpManager.downLoadImage(Constant.BASE_URL + userInfo.getHead_pic(), savePath, new HttpHelp.XCallBack() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Log.e("HYN", "头像下载：" + result);
-                        uploadfile = new File(result);
-                    }
 
-                    @Override
-                    public void onError(Throwable errorMsg) {
-                        Log.e("HYN", "头像失败：" + errorMsg);
-                    }
-                });
+//                httpManager.downLoadImage(Constant.BASE_URL + userInfo.getHead_pic(), savePath, "photo_img.png", new HttpHelp.XCallBack() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        Log.e("HYN", "头像下载：" + result);
+//                        uploadfile = new File(result);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable errorMsg) {
+//                        Log.e("HYN", "头像失败：" + errorMsg);
+//                    }
+//                });
             }
-            ImageLoaderUtil.loadCircularHeadImg(iv_user_head, userInfo.getHead_pic(), true);
+            ImageLoaderUtil.loadImageView(iv_user_head, userInfo.getHead_pic());
             tv_user_name.setText(userInfo.getUsername());
             tv_birthday.setText(userInfo.getBirthday());
             sex = userInfo.getSex();
@@ -137,50 +142,6 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Event(value = {R.id.ll_back, R.id.tv_select, R.id.tv_birthday, R.id.tv_change, R.id.tv_out})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-            case R.id.tv_select:
-                PermissionUtils.requestPermission(this, PermissionUtils.CODE_CAMERA, permissionGrant);
-//                showDlg();
-                break;
-            case R.id.tv_birthday:
-                final SelectDateDialog selectDateDialog = new SelectDateDialog(this);
-                selectDateDialog.setDialogButtonListener(new SelectDateDialog.DialogButtonListener() {
-                    @Override
-                    public void positiveClick() {
-                        selectDateDialog.dismiss();
-                        tv_birthday.setText(selectDateDialog.setDate());
-                    }
-
-                    @Override
-                    public void negativeClick() {
-                        selectDateDialog.dismiss();
-                    }
-                });
-                selectDateDialog.show();
-                break;
-            case R.id.tv_change:
-                if (uploadfile != null) {
-                    changeInfo();
-                } else {
-                    ToastUtils.showToast("请设置头像");
-                }
-                break;
-            case R.id.tv_out:
-                try {
-                    SharedPreferencesUtil.setMobileLoginInfo(this, "");
-                    finish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
     }
 
     private void showDlg() {
@@ -279,5 +240,49 @@ public class SettingActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionUtils.requestPermissionsResult(this, requestCode, permissions, grantResults, permissionGrant);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.tv_select:
+                PermissionUtils.requestPermission(this, PermissionUtils.CODE_CAMERA, permissionGrant);
+//                showDlg();
+                break;
+            case R.id.tv_birthday:
+                final SelectDateDialog selectDateDialog = new SelectDateDialog(this);
+                selectDateDialog.setDialogButtonListener(new SelectDateDialog.DialogButtonListener() {
+                    @Override
+                    public void positiveClick() {
+                        selectDateDialog.dismiss();
+                        tv_birthday.setText(selectDateDialog.setDate());
+                    }
+
+                    @Override
+                    public void negativeClick() {
+                        selectDateDialog.dismiss();
+                    }
+                });
+                selectDateDialog.show();
+                break;
+            case R.id.tv_change:
+                if (uploadfile != null) {
+                    changeInfo();
+                } else {
+                    ToastUtils.showToast("请设置头像");
+                }
+                break;
+            case R.id.tv_out:
+                try {
+                    SharedPreferencesUtil.setMobileLoginInfo(this, "");
+                    finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
     }
 }

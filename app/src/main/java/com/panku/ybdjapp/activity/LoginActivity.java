@@ -21,11 +21,6 @@ import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
 /**
  * author： hyn
  * e-mail: hyn_0525@sina.com
@@ -33,27 +28,16 @@ import org.xutils.x;
  * Time: 15:26
  * 登录界面
  */
-@ContentView(R.layout.ac_login)
-public class LoginActivity extends Activity {
-    @ViewInject(R.id.et_phone)
+public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText et_phone;//手机号码
-    @ViewInject(R.id.et_pass)
     private EditText et_pass;//密码
-    @ViewInject(R.id.tv_title)
     private TextView tv_title;//标题
-    @ViewInject(R.id.tv_forget)
     private TextView tv_forget;//忘记密码
-    @ViewInject(R.id.tv_login)
     private TextView tv_login;//登陆
-    @ViewInject(R.id.tv_register)
     private TextView tv_register;//注册
-    @ViewInject(R.id.ll_back)
     private LinearLayout ll_back;//返回按钮
-    @ViewInject(R.id.ll_rl_login)
     private LinearLayout ll_rl_login;//人脸识别登陆
-    @ViewInject(R.id.ll_wx_login)
     private LinearLayout ll_wx_login;//微信登陆
-    @ViewInject(R.id.ll_zfb_login)
     private LinearLayout ll_zfb_login;//支付宝登陆
 
     private HttpManager manager;
@@ -61,34 +45,30 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_login);
+        initView();
         manager = new HttpManager();
         tv_title.setText("账号登录");
     }
 
-    @Event(value = {R.id.ll_back, R.id.tv_forget, R.id.tv_login, R.id.tv_register, R.id.ll_rl_login, R.id.ll_wx_login, R.id.ll_zfb_login})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-            case R.id.tv_forget:
-                startActivity(new Intent(this, ForgetActivity.class));
-                break;
-            case R.id.tv_login:
-                login();
-                break;
-            case R.id.tv_register:
-                startActivity(new Intent(this, RegisterActivity.class));
-                finish();
-                break;
-            case R.id.ll_rl_login:
-                break;
-            case R.id.ll_wx_login:
-                break;
-            case R.id.ll_zfb_login:
-                break;
-        }
+    private void initView() {
+        et_phone = (EditText) findViewById(R.id.et_phone);
+        et_pass = (EditText) findViewById(R.id.et_pass);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_forget = (TextView) findViewById(R.id.tv_forget);
+        tv_login = (TextView) findViewById(R.id.tv_login);
+        tv_register = (TextView) findViewById(R.id.tv_register);
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        ll_rl_login = (LinearLayout) findViewById(R.id.ll_rl_login);
+        ll_wx_login = (LinearLayout) findViewById(R.id.ll_wx_login);
+        ll_zfb_login = (LinearLayout) findViewById(R.id.ll_zfb_login);
+        ll_back.setOnClickListener(this);
+        tv_forget.setOnClickListener(this);
+        tv_login.setOnClickListener(this);
+        tv_register.setOnClickListener(this);
+        ll_rl_login.setOnClickListener(this);
+        ll_wx_login.setOnClickListener(this);
+        ll_zfb_login.setOnClickListener(this);
     }
 
     /**
@@ -132,6 +112,31 @@ public class LoginActivity extends Activity {
             }
         } else {
             ToastUtils.showToast("请输入用户名密码");
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.tv_forget:
+                startActivity(new Intent(this, ForgetActivity.class));
+                break;
+            case R.id.tv_login:
+                login();
+                break;
+            case R.id.tv_register:
+                startActivity(new Intent(this, RegisterActivity.class));
+                finish();
+                break;
+            case R.id.ll_rl_login:
+                break;
+            case R.id.ll_wx_login:
+                break;
+            case R.id.ll_zfb_login:
+                break;
         }
     }
 }

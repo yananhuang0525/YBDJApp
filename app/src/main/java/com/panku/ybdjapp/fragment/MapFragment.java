@@ -33,9 +33,6 @@ import com.panku.ybdjapp.biz.NearbyShopInfo;
 import com.panku.ybdjapp.http.HttpManager;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +42,7 @@ import java.util.List;
  * Time: 13:41
  * author: hyn
  */
-@ContentView(R.layout.fg_nearby_map)
 public class MapFragment extends SupportMapFragment implements LocationSource, AMapLocationListener, AMap.OnMarkerClickListener {
-    @ViewInject(R.id.mv)
     private MapView mv;
     private AMap amap;
     private OnLocationChangedListener mListener;
@@ -64,7 +59,8 @@ public class MapFragment extends SupportMapFragment implements LocationSource, A
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        View view = x.view().inject(this, layoutInflater, viewGroup);
+        View view = layoutInflater.inflate(R.layout.fg_nearby_map,viewGroup,false);
+        mv = (MapView) view.findViewById(R.id.mv);
         mv.onCreate(bundle);
         amap = mv.getMap();
         //设置缩放级别（缩放级别为4-20级）
@@ -72,7 +68,6 @@ public class MapFragment extends SupportMapFragment implements LocationSource, A
         setUpMap();
         return view;
     }
-
     private void setUpMap() {
         // 自定义系统定位小蓝点
         myLocationStyle = new MyLocationStyle();

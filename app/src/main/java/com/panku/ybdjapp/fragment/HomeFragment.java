@@ -39,11 +39,6 @@ import com.panku.ybdjapp.biz.ItemInfo;
 import com.panku.ybdjapp.http.HttpManager;
 import com.panku.ybdjapp.http.Interface.HttpCallBack;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,28 +48,19 @@ import java.util.List;
  * Date: 2017/4/5
  * Time: 15:06
  */
-@ContentView(R.layout.fg_home)
-public class HomeFragment extends Fragment implements AMapLocationListener {
-    @ViewInject(R.id.ll_search)
+public class HomeFragment extends Fragment implements AMapLocationListener, View.OnClickListener {
     private LinearLayout ll_search;//搜索
-    @ViewInject(R.id.et_search)
     private EditText et_search;
-    @ViewInject(R.id.ll_more)
     private LinearLayout ll_more;//更多
-    @ViewInject(R.id.tv_address)
     private TextView tv_address;//地址
-    @ViewInject(R.id.rpv)
     private RollPagerView rpv;
-    @ViewInject(R.id.ll_nearby)
     private LinearLayout ll_nearby;//附近药店
-    @ViewInject(R.id.ll_look_more)
     private LinearLayout ll_look_more;//搜索
-    @ViewInject(R.id.rv_home)
     private RecyclerView rv_home;
     private RollAdapter rollAdapter;
 
-//    private int[] imgs = {R.mipmap.img01, R.mipmap.img02};
-    private String[] imgs = {"http://www.kongtu.com/9186036198_image.jpg", "http://www.kongtu.com/?action-viewnews-itemid-9508"};
+    //    private int[] imgs = {R.mipmap.img01, R.mipmap.img02};
+    private String[] imgs = {"", ""};
     private List<ItemInfo> list;
     private LinearLayoutManager manger;
     private HomeGVAdapter homeAdapter;
@@ -89,12 +75,29 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = x.view().inject(this, inflater, container);
+//        View view = x.view().inject(this, inflater, container);
+        View view = inflater.inflate(R.layout.fg_home, container, false);
+        initView(view);
         Log.i("HYN", "Home==onCreate");
         httpManager = new HttpManager();
         initRoll();
-        getCategoryList(null, null, 1);
+        getCategoryList("", "", 1);
         return view;
+    }
+
+    private void initView(View view) {
+        ll_search = (LinearLayout) view.findViewById(R.id.ll_search);
+        ll_more = (LinearLayout) view.findViewById(R.id.ll_more);
+        ll_nearby = (LinearLayout) view.findViewById(R.id.ll_nearby);
+        ll_look_more = (LinearLayout) view.findViewById(R.id.ll_look_more);
+        et_search = (EditText) view.findViewById(R.id.et_search);
+        tv_address = (TextView) view.findViewById(R.id.tv_address);
+        rpv = (RollPagerView) view.findViewById(R.id.rpv);
+        rv_home = (RecyclerView) view.findViewById(R.id.rv_home);
+        ll_look_more.setOnClickListener(this);
+        ll_search.setOnClickListener(this);
+        ll_more.setOnClickListener(this);
+        ll_nearby.setOnClickListener(this);
     }
 
     /**
@@ -111,45 +114,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             }
         });
 
-    }
-
-    private void initGV(List<MultiItemEntity> categories) {
-//        String[] name = {"我的订单", "慢性病购药单", "社保卡管理",
-//                "收货地址管理", "优惠卷中心", "消息中心", "我的收藏", "基本信息设置",
-//                "安全认证"};
-//        int[] icon = {R.mipmap.ic_item01, R.mipmap.ic_item02, R.mipmap.ic_item03,
-//                R.mipmap.ic_item04, R.mipmap.ic_item05, R.mipmap.ic_item06, R.mipmap.ic_item07,
-//                R.mipmap.ic_item08, R.mipmap.ic_item09};
-
-
-        list = new ArrayList<>();
-        for (int i = 0; i < categories.size(); i++) {
-            ItemInfo info = new ItemInfo();
-//            info.setIcon();
-//            info.setName(name[i]);
-            list.add(info);
-        }
-        manger = new GridLayoutManager(getActivity(), 3);
-        homeAdapter = new HomeGVAdapter(R.layout.item_gridview, list);
-        rv_home.setLayoutManager(manger);
-        rv_home.setAdapter(homeAdapter);
-        rv_home.addItemDecoration(new DividerGridItemDecoration(getActivity()));
-    }
-
-    @Event(value = {R.id.ll_more, R.id.et_search, R.id.ll_look_more, R.id.ll_nearby})
-    private void Event(View view) {
-        switch (view.getId()) {
-            case R.id.ll_more:
-            case R.id.ll_look_more:
-                startActivity(new Intent(getActivity(), CategoryActivity.class));
-                break;
-            case R.id.et_search:
-                startActivity(new Intent(getActivity(), SearchActivity.class));
-                break;
-            case R.id.ll_nearby:
-                startActivity(new Intent(getActivity(), NearByDrugStoreActivity.class));
-                break;
-        }
     }
 
     /**
@@ -301,4 +265,20 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             }
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_more:
+            case R.id.ll_look_more:
+                startActivity(new Intent(getActivity(), CategoryActivity.class));
+                break;
+            case R.id.et_search:
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
+            case R.id.ll_nearby:
+                startActivity(new Intent(getActivity(), NearByDrugStoreActivity.class));
+                break;
+        }
+    }
 }

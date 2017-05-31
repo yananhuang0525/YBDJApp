@@ -15,9 +15,6 @@ import com.panku.ybdjapp.adapter.HotAdapter;
 import com.panku.ybdjapp.adapter.SellingAdapter;
 import com.panku.ybdjapp.biz.DrugInfo;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +25,8 @@ import java.util.List;
  * author: hyn
  * 搜索药品
  */
-@ContentView(R.layout.ac_search)
 public class SearchActivity extends Activity {
-    @ViewInject(R.id.rv_hot)
     private RecyclerView rv_hot;
-    @ViewInject(R.id.rv_selling)
     private RecyclerView rv_selling;
     private LinearLayoutManager linearLayoutManager;
     private LinearLayoutManager linearLayoutManager1;
@@ -42,7 +36,9 @@ public class SearchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.ac_search);
+        rv_hot = (RecyclerView) findViewById(R.id.rv_hot);
+        rv_selling = (RecyclerView) findViewById(R.id.rv_selling);
         initRV();
     }
 
